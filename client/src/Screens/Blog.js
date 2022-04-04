@@ -31,8 +31,7 @@ const Blog = () => {
   const [viewPost, setViewPost] = useState(false);
 
   // Data. Setters
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
+
   const [id, setId] = useState("");
 
   const GetBlogData = () => {
@@ -242,7 +241,7 @@ const Blog = () => {
       <CustomModal show={viewDelete} header="Delete blog">
         <CustomModalFooter
           onClose={() => {
-            setEditShow(false);
+            setDeleteShow(false);
           }}
         >
           <label>Are you sure you want to </label>
