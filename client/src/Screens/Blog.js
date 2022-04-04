@@ -16,7 +16,7 @@ import {
 
 const Blog = () => {
   const [data, setData] = useState([]);
-  const [cardData, setCardData] = useState([]);
+  const [cardData, setCardData] = useState({});
 
   // GET
   const [viewShow, setViewShow] = useState(false);
@@ -31,8 +31,8 @@ const Blog = () => {
   const [viewPost, setViewPost] = useState(false);
 
   // Data. Setters
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [description, setDescription] = useState("");
   const [id, setId] = useState("");
 
   const GetBlogData = () => {
@@ -54,14 +54,14 @@ const Blog = () => {
 
   const handleSubmit = () => {
     const url = "http://localhost:8000/blogs";
-    const Credentials = { title, description };
+    const { title, description } = cardData;
     axios
-      .post(url, Credentials)
+      .post(url, { title, description })
       .then((response) => {
         const { statusText, message } = response;
         if (statusText !== "OK") {
           alert(data, message, statusText);
-        } else if (title.trim().length > 0 && description.trim().length > 0) {
+        } else {
           alert("blog uploaded succesfully");
           window.location.reload();
         }
@@ -73,9 +73,9 @@ const Blog = () => {
 
   const handleEdit = () => {
     const url = `http://localhost:8000/blogs/${id}`;
-    const Credentials = { title, description };
+    const { title, description } = cardData;
     axios
-      .put(url, Credentials)
+      .put(url, { title, description })
       .then((response) => {
         const { statusText, message } = response;
         if (statusText !== "OK") {
@@ -84,8 +84,7 @@ const Blog = () => {
           GetBlogData();
           alert("blog edited succesfully");
           setEditShow(false);
-          setDescription("");
-          setTitle("");
+          setCardData({});
         }
       })
       .catch((err) => {
@@ -115,7 +114,14 @@ const Blog = () => {
     GetBlogData();
   }, []);
 
-  const isDisabled = !title?.trim()?.length || !description?.trim()?.length;
+  const handleChange = (name, value) => {
+    setCardData({ ...cardData, [name]: value });
+  };
+
+  const isDisabled =
+    !cardData?.title?.trim()?.length || !cardData.description?.trim()?.length;
+
+  console.log(cardData);
 
   return (
     <div>
@@ -124,9 +130,8 @@ const Blog = () => {
         <CustomButton
           buttonName="Add new Blog"
           onClick={() => {
+            setCardData({ title: "", description: "" });
             setViewPost(true);
-            setTitle("");
-            setDescription("");
           }}
         ></CustomButton>
       </CustomContainer>
@@ -148,9 +153,9 @@ const Blog = () => {
                 <CustomButton
                   buttonName="Edit"
                   onClick={() => {
+                    console.log("current: ", item);
                     setEditShow(true);
-                    setTitle(item.title);
-                    setDescription(item.description);
+                    setCardData(item);
                     setId(item._id);
                   }}
                 ></CustomButton>
@@ -169,15 +174,10 @@ const Blog = () => {
 
       {/*  (NEWWW) view modal */}
       <CustomModal show={viewShow} header="View blog">
+        <CustomInput readOnly defaultValue={cardData?.title}></CustomInput>
         <CustomInput
           readOnly
-          onChangeInput={setTitle}
-          defaultValue={cardData.title}
-        ></CustomInput>
-        <CustomInput
-          readOnly
-          onChangeInput={setDescription}
-          defaultValue={cardData.description}
+          defaultValue={cardData?.description}
         ></CustomInput>
         <CustomModalFooter
           date={cardData.date}
@@ -190,20 +190,24 @@ const Blog = () => {
       <CustomModal show={viewPost} header="Create a blog">
         <label>Title</label>
         <CustomInput
-          onChangeInput={setTitle}
-          defaultValue={title}
+          onChangeInput={(value) => handleChange("title", value)}
+          value={cardData?.title}
         ></CustomInput>
         <label>Description</label>
         <CustomInput
-          onChangeInput={setDescription}
-          defaultValue={description}
+          onChangeInput={(value) => handleChange("description", value)}
+          value={cardData?.description}
         ></CustomInput>
         <CustomModalFooter
           onClose={() => {
             setViewPost(false);
           }}
         >
-          <CustomButton buttonName="Save" onClick={handleSubmit}></CustomButton>
+          <CustomButton
+            disabled={isDisabled}
+            buttonName="Save"
+            onClick={handleSubmit}
+          ></CustomButton>
         </CustomModalFooter>
       </CustomModal>
 
@@ -212,20 +216,24 @@ const Blog = () => {
       <CustomModal show={viewEdit} header="Edit your blog">
         <label>Title</label>
         <CustomInput
-          onChangeInput={setTitle}
-          defaultValue={title}
+          onChangeInput={(value) => handleChange("title", value)}
+          value={cardData?.title}
         ></CustomInput>
         <label>Description</label>
         <CustomInput
-          onChangeInput={setDescription}
-          defaultValue={description}
+          onChangeInput={(value) => handleChange("description", value)}
+          value={cardData?.description}
         ></CustomInput>
         <CustomModalFooter
           onClose={() => {
             setEditShow(false);
           }}
         >
-          <CustomButton buttonName="Save" onClick={handleEdit}></CustomButton>
+          <CustomButton
+            disabled={isDisabled}
+            buttonName="Save"
+            onClick={handleEdit}
+          ></CustomButton>
         </CustomModalFooter>
       </CustomModal>
 

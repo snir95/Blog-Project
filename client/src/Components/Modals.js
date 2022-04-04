@@ -26,6 +26,7 @@ export const CustomInput = ({
   defaultValue,
   readOnly,
   onChangeInput,
+  value,
 }) => {
   return readOnly ? (
     <ReadOnlyInput>{defaultValue}</ReadOnlyInput>
@@ -33,6 +34,7 @@ export const CustomInput = ({
     <Input
       required={required}
       defaultValue={defaultValue}
+      value={value}
       readOnly={readOnly}
       onChange={(ev) => {
         onChangeInput(ev.target.value);
