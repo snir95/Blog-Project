@@ -29,4 +29,5 @@ const Button = styled.button`
   background-color: ${({ bgc }) => bgc || "lightblue"};
   border: solid rgba(0, 0, 0, 0.125);
   border-radius: 15px;
+  padding: 3px 7px;
 `;

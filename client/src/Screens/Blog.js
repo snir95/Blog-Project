@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { CustomButtonRow, CustomButton } from "../Components/Control/Button";
-import {
-  CustomCard,
-  CustomCardBody,
-  CustomCardFooter,
-  CustomCardHead,
-} from "../Components/Blog/Post";
 import styled from "styled-components";
-import {
-  CustomModal,
-  CustomModalFooter,
-  CustomInput,
-} from "../Components/Modals";
+import { CustomButtonRow, CustomButton } from "../Components/Control/Button";
+import { CustomModal } from "../Components/Control/Modals/Modal";
+import { CustomModalFooter } from "../Components/Control/Modals/ModalFooter";
+import { CustomInput } from "../Components/Control/Input";
+import { CustomCard } from "../Components/Blog/Post";
+import { CustomCardHead } from "../Components/Blog/CardHead";
+import { CustomCardBody } from "../Components/Blog/CardBody";
+import { CustomCardFooter } from "../Components/Blog/CardFooter";
 
 const Blog = () => {
   const [data, setData] = useState([]);
@@ -134,7 +130,7 @@ const Blog = () => {
           }}
         ></CustomButton>
       </CustomContainer>
-      {/* card html */}
+      {/* card  */}
       <CustomContainer>
         {data.map((item, index) => (
           <CustomCard key={index}>
@@ -254,11 +250,11 @@ const Blog = () => {
     </div>
   );
 };
-
+// do i need this?
 export const CustomContainer = ({ children }) => {
   return <Container>{children}</Container>;
 };
-
+//^^^^
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
