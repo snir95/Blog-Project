@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const CustomCardFooter = ({ date, children }) => {
+const CustomCardFooter = ({ date, children }) => {
   return (
     <CardFooter>
       <p>{date}</p>
@@ -9,6 +9,8 @@ export const CustomCardFooter = ({ date, children }) => {
     </CardFooter>
   );
 };
+
+export default CustomCardFooter;
 const CardFooter = styled.div`
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.09);

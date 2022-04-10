@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { CustomButtonRow, CustomButton } from "../Components/Control/Button";
-import { CustomModal } from "../Components/Control/Modals/Modal";
-import { CustomModalFooter } from "../Components/Control/Modals/ModalFooter";
-import { CustomInput } from "../Components/Control/Input";
-import { CustomCard } from "../Components/Blog/Post";
-import { CustomCardHead } from "../Components/Blog/CardHead";
-import { CustomCardBody } from "../Components/Blog/CardBody";
-import { CustomCardFooter } from "../Components/Blog/CardFooter";
+import CustomButton from "../Components/Control/CustomButton";
+import CustomButtonRow from "../Components/Control/CustomButtonRow";
+import CustomModal from "../Components/Modals/CustomModal";
+import CustomModalFooter from "../Components/Modals/CustomModalFooter";
+import CustomInput from "../Components/Control/CustomInput";
+import CustomCard from "../Components/Blog/Post";
+import CustomCardFooter from "../Components/Blog/CustomCardFooter";
+import ViewPostModal from "../Components/Blog/ViewPostModal";
 
 const Blog = () => {
   const [data, setData] = useState([]);
@@ -133,9 +133,11 @@ const Blog = () => {
       {/* card  */}
       <CustomContainer>
         {data.map((item, index) => (
-          <CustomCard key={index}>
-            <CustomCardHead title={item.title}></CustomCardHead>
-            <CustomCardBody description={item.description}></CustomCardBody>
+          <CustomCard
+            title={item.title}
+            description={item.description}
+            key={index}
+          >
             <CustomCardFooter date={item.date}>
               <CustomButtonRow>
                 <CustomButton
@@ -148,7 +150,6 @@ const Blog = () => {
                 <CustomButton
                   buttonName="Edit"
                   onClick={() => {
-                    console.log("current: ", item);
                     setEditShow(true);
                     setCardData(item);
                     setId(item._id);
@@ -167,20 +168,11 @@ const Blog = () => {
         ))}
       </CustomContainer>
 
-      {/*  (NEWWW) view modal */}
-      <CustomModal show={viewShow} header="View blog">
-        <CustomInput readOnly defaultValue={cardData?.title}></CustomInput>
-        <CustomInput
-          readOnly
-          defaultValue={cardData?.description}
-        ></CustomInput>
-        <CustomModalFooter
-          date={cardData.date}
-          onClose={() => setViewShow(false)}
-        />
-      </CustomModal>
-
-      {/* post modal */}
+      <ViewPostModal
+        cardData={cardData}
+        show={viewShow}
+        setViewShow={setViewShow}
+      />
 
       <CustomModal show={viewPost} header="Create a blog">
         <label>Title</label>

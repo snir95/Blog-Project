@@ -9,25 +9,24 @@ const bgOps = {
   Close: "lightgrey",
 };
 
-export const CustomButton = ({ disabled, buttonName, onClick }) => {
+const CustomButton = ({ disabled, buttonName, onClick }) => {
   return (
     <Button disabled={disabled} onClick={onClick} bgc={bgOps[buttonName]}>
       {buttonName}
     </Button>
   );
 };
-export const CustomButtonRow = ({ children }) => {
-  return <ButtonRow>{children}</ButtonRow>;
-};
 
-const ButtonRow = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+export default CustomButton;
+
 const Button = styled.button`
   margin: 0 5px;
   background-color: ${({ bgc }) => bgc || "lightblue"};
   border: solid rgba(0, 0, 0, 0.125);
   border-radius: 15px;
   padding: 3px 7px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;

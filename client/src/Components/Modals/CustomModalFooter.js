@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { CustomButton } from "../Button";
+import CustomButton from "../Control/CustomButton";
 
-export const CustomModalFooter = ({ date, children, onClose }) => {
+const CustomModalFooter = ({ date, children, onClose }) => {
   return (
     <ModalFooter>
       <p>{date}</p>
@@ -11,6 +11,9 @@ export const CustomModalFooter = ({ date, children, onClose }) => {
     </ModalFooter>
   );
 };
+
+export default CustomModalFooter;
+
 const ModalFooter = styled.div`
   height: fit-content;
   padding: 1rem 1rem;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const CustomModal = ({ show, children, header }) => {
+const CustomModal = ({ show, children, header }) => {
   return (
     <Modal show={show}>
       <ModalMiddle>
@@ -11,6 +11,8 @@ export const CustomModal = ({ show, children, header }) => {
     </Modal>
   );
 };
+
+export default CustomModal;
 
 const Modal = styled.div`
   text-align: center;
