@@ -1,7 +1,7 @@
 import React from "react";
-import CustomInput from "../Control/CustomInput";
-import CustomModal from "../Modals/CustomModal";
-import CustomModalFooter from "../Modals/CustomModalFooter";
+import CustomInput from "../../Control/CustomInput";
+import CustomModal from "../../Modals/CustomModal";
+import CustomModalFooter from "../../Modals/CustomModalFooter";
 
 const ViewPostModal = ({ show, cardData, setViewShow }) => {
   return (
