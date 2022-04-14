@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import CustomButton from "../Components/Control/CustomButton";
 import ViewPostModal from "../Components/Blog/ViewModals/ViewPostModal";
@@ -24,6 +23,7 @@ const Blog = () => {
   const [deleteShow, setDeleteShow] = useState(false);
   const [postShow, setPostShow] = useState(false);
 
+  // need to make the shows as an object to generalize states. or use redux
   const [modalType, setModalType] = useState(null);
 
   const GetBlogData = () => {
