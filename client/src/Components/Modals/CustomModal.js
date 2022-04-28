@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const CustomModal = ({ show, children, header }) => {
+const CustomModal = ({ children, header }) => {
   return (
-    <Modal show={show}>
+    <Modal>
       <ModalMiddle>
         <ModalHeader>{header}</ModalHeader>
         <ModalBody>{children}</ModalBody>
@@ -17,7 +17,6 @@ export default CustomModal;
 const Modal = styled.div`
   text-align: center;
   z-index: auto;
-  display: ${({ show }) => (show ? "block" : "none")};
   position: fixed;
   top: 0;
   left: 0;

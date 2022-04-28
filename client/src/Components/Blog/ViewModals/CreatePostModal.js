@@ -4,17 +4,11 @@ import CustomInput from "../../Control/CustomInput";
 import CustomModal from "../../Modals/CustomModal";
 import CustomModalFooter from "../../Modals/CustomModalFooter";
 
-const CreatePostModal = ({
-  postShow,
-  setPostShow,
-  cardData,
-  handleSubmit,
-  handleChange,
-}) => {
+const CreatePostModal = ({ onClose, cardData, handleSubmit, handleChange }) => {
   const isDisabled =
     !cardData?.title?.trim()?.length || !cardData.description?.trim()?.length;
   return (
-    <CustomModal show={postShow} header="Create a blog">
+    <CustomModal header="Create a blog">
       <label>Title</label>
       <CustomInput
         onChangeInput={(value) => handleChange("title", value)}
@@ -25,11 +19,7 @@ const CreatePostModal = ({
         onChangeInput={(value) => handleChange("description", value)}
         value={cardData?.description}
       ></CustomInput>
-      <CustomModalFooter
-        onClose={() => {
-          setPostShow(false);
-        }}
-      >
+      <CustomModalFooter onClose={onClose}>
         <CustomButton
           disabled={isDisabled}
           buttonName="Save"

@@ -4,13 +4,7 @@ import CustomButtonRow from "../Control/CustomButtonRow";
 import CustomCard from "./CustomCard";
 import CustomCardFooter from "./CustomCardFooter";
 
-const Post = ({
-  item,
-  setViewShow,
-  setEditShow,
-  setCardData,
-  setDeleteShow,
-}) => {
+const Post = ({ item, setCardData, onShowModal }) => {
   return (
     <CustomCard title={item.title} description={item.description}>
       <CustomCardFooter date={item.date}>
@@ -18,21 +12,21 @@ const Post = ({
           <CustomButton
             buttonName="View"
             onClick={() => {
-              setViewShow(true);
+              onShowModal("view");
               setCardData(item);
             }}
           ></CustomButton>
           <CustomButton
             buttonName="Edit"
             onClick={() => {
-              setEditShow(true);
+              onShowModal("edit");
               setCardData(item);
             }}
           ></CustomButton>
           <CustomButton
             buttonName="Delete"
             onClick={() => {
-              setDeleteShow(true);
+              onShowModal("deleted");
               setCardData(item);
             }}
           ></CustomButton>

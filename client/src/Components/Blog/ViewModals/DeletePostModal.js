@@ -3,14 +3,10 @@ import CustomButton from "../../Control/CustomButton";
 import CustomModal from "../../Modals/CustomModal";
 import CustomModalFooter from "../../Modals/CustomModalFooter";
 
-const DeletePostModal = ({ setDeleteShow, deleteShow, handleDelete }) => {
+const DeletePostModal = ({ onClose, handleDelete }) => {
   return (
-    <CustomModal show={deleteShow} header="Delete blog">
-      <CustomModalFooter
-        onClose={() => {
-          setDeleteShow(false);
-        }}
-      >
+    <CustomModal header="Delete blog">
+      <CustomModalFooter onClose={onClose}>
         <label>Are you sure you want to </label>
         <CustomButton buttonName="Delete" onClick={handleDelete}></CustomButton>
       </CustomModalFooter>

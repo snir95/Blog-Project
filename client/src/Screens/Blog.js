@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CustomButton from "../Components/Control/CustomButton";
 import ViewPostModal from "../Components/Blog/ViewModals/ViewPostModal";
@@ -6,116 +6,90 @@ import EditPostModal from "../Components/Blog/ViewModals/EditPostModal";
 import CreatePostModal from "../Components/Blog/ViewModals/CreatePostModal";
 import DeletePostModal from "../Components/Blog/ViewModals/DeletePostModal";
 import Post from "../Components/Blog/Post";
-import api from "../services/api";
+import {
+  useGetBlogsQuery,
+  useUpdateBlogMutation,
+  useDeleteBlogMutation,
+  useCreateBlogMutation,
+} from "../services/blog";
 
 const modals = {
   view: ViewPostModal,
-  delete: DeletePostModal,
+  deleted: DeletePostModal,
   edit: EditPostModal,
   create: CreatePostModal,
 };
 
 const Blog = () => {
-  const [data, setData] = useState([]);
   const [cardData, setCardData] = useState({});
-  const [viewShow, setViewShow] = useState(false);
-  const [editShow, setEditShow] = useState(false);
-  const [deleteShow, setDeleteShow] = useState(false);
-  const [postShow, setPostShow] = useState(false);
-
-  // need to make the shows as an object to generalize states. or use redux
   const [modalType, setModalType] = useState(null);
 
-  const GetBlogData = () => {
-    {
-      api.getApi((res) => setData(res));
-    }
+  const { data: currentData } = useGetBlogsQuery();
+  const [deleteBlog, deleteResult] = useDeleteBlogMutation();
+  const [createBlog, createResult] = useCreateBlogMutation();
+  const [updateBlog, updateResult] = useUpdateBlogMutation();
+
+  const onShowModal = (type) => {
+    setModalType(type);
   };
 
   const handleSubmit = () => {
     const { title, description } = cardData;
-    api.postApi({ title, description }, () => window.location.reload());
+    createBlog({ title, description });
   };
-
+  //tag id fix
   const handleEdit = () => {
-    const { title, description } = cardData;
-    api.putApi(cardData._id, { title, description }, () => {
-      GetBlogData();
-      alert("we good");
-      setEditShow(false);
-      setCardData({});
-    });
+    const { _id, title, description } = cardData;
+    updateBlog({ _id, title, description });
+    onShowModal(null);
   };
 
   const handleDelete = () => {
-    console.log("sdfafda");
-    api.deleteApi(cardData._id, () => {
-      GetBlogData();
-      setDeleteShow(false);
-    });
+    deleteBlog(cardData._id);
+    onShowModal(null);
   };
-
-  useEffect(() => {
-    GetBlogData();
-  }, []);
 
   const handleChange = (name, value) => {
     setCardData({ ...cardData, [name]: value });
   };
 
+  const Modal = modals[modalType];
+
+  const onAddNewPost = () => {
+    setCardData({ title: "", description: "" });
+    onShowModal("create");
+  };
+
   return (
     <div>
-      {/* add new blog - row */}
       <CustomContainer>
         <CustomButton
           buttonName="Add new Blog"
-          onClick={() => {
-            setCardData({ title: "", description: "" });
-            setPostShow(true);
-          }}
+          onClick={onAddNewPost}
         ></CustomButton>
       </CustomContainer>
-      {/* map(card)  */}
       <CustomContainer>
-        {data.map((item, index) => (
-          <Post
-            key={index}
-            item={item}
-            setViewShow={setViewShow}
-            setEditShow={setEditShow}
-            setCardData={setCardData}
-            setDeleteShow={setDeleteShow}
-          />
-        ))}
+        {currentData &&
+          currentData.map((item, index) => (
+            <Post
+              key={index}
+              item={item}
+              onShowModal={onShowModal}
+              setCardData={setCardData}
+            />
+          ))}
       </CustomContainer>
-      {/* View modal */}
-      <ViewPostModal
-        cardData={cardData}
-        show={viewShow}
-        setViewShow={setViewShow}
-      />
-      {/* create modal */}
-      <CreatePostModal
-        postShow={postShow}
-        setPostShow={setPostShow}
-        cardData={cardData}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-      />
-      {/* edit modal */}
-      <EditPostModal
-        cardData={cardData}
-        handleEdit={handleEdit}
-        handleChange={handleChange}
-        editShow={editShow}
-        setEditShow={setEditShow}
-      />
-      {/* delete modal */}
-      <DeletePostModal
-        setDeleteShow={setDeleteShow}
-        deleteShow={deleteShow}
-        handleDelete={handleDelete}
-      />
+
+      {modalType && (
+        <Modal
+          cardData={cardData}
+          handleEdit={handleEdit}
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+          handleSubmit={handleSubmit}
+          onClose={() => onShowModal(null)}
+        />
+      )}
     </div>
   );
 };
