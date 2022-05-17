@@ -20,6 +20,12 @@ const EditPostModal = ({ cardData, handleEdit, handleChange, onClose }) => {
         onChangeInput={(value) => handleChange("description", value)}
         value={cardData?.description}
       ></CustomInput>
+      <label>Color</label>
+      <CustomInput
+        type="color"
+        onChangeInput={(value) => handleChange("bgColor", value)}
+        value={cardData?.bgColor}
+      ></CustomInput>
       <CustomModalFooter onClose={onClose}>
         <CustomButton
           disabled={isDisabled}

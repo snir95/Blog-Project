@@ -6,7 +6,11 @@ import CustomCardFooter from "./CustomCardFooter";
 
 const Post = ({ item, setCardData, onShowModal }) => {
   return (
-    <CustomCard title={item.title} description={item.description}>
+    <CustomCard
+      title={item.title}
+      description={item.description}
+      bgColor={item.bgColor}
+    >
       <CustomCardFooter date={item.date}>
         <CustomButtonRow>
           <CustomButton

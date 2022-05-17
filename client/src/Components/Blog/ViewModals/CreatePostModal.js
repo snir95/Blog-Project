@@ -1,4 +1,5 @@
 import React from "react";
+import { getRandomColor } from "../../../services/utils";
 import CustomButton from "../../Control/CustomButton";
 import CustomInput from "../../Control/CustomInput";
 import CustomModal from "../../Modals/CustomModal";

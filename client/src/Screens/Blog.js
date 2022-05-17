@@ -12,6 +12,7 @@ import {
   useDeleteBlogMutation,
   useCreateBlogMutation,
 } from "../services/blog";
+import { getRandomColor } from "../services/utils";
 
 const modals = {
   view: ViewPostModal,
@@ -32,15 +33,17 @@ const Blog = () => {
   const onShowModal = (type) => {
     setModalType(type);
   };
+  const bgColor = getRandomColor();
 
   const handleSubmit = () => {
-    const { title, description } = cardData;
-    createBlog({ title, description });
+    const { title, description, bgColor } = cardData;
+    createBlog({ title, description, bgColor });
+    onShowModal(null);
   };
   //tag id fix
   const handleEdit = () => {
-    const { _id, title, description } = cardData;
-    updateBlog({ _id, title, description });
+    const { _id, title, description, bgColor } = cardData;
+    updateBlog({ _id, title, description, bgColor });
     onShowModal(null);
   };
 

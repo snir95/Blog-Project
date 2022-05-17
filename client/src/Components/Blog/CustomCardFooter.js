@@ -12,6 +12,7 @@ const CustomCardFooter = ({ date, children }) => {
 
 export default CustomCardFooter;
 const CardFooter = styled.div`
+  text-align: center;
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.09);
   border-top: 1px solid rgba(0, 0, 0, 0.125);

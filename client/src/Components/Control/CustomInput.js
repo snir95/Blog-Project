@@ -7,11 +7,13 @@ const CustomInput = ({
   readOnly,
   onChangeInput,
   value,
+  type,
 }) => {
   return readOnly ? (
     <ReadOnlyInput>{defaultValue}</ReadOnlyInput>
   ) : (
     <Input
+      type={type}
       required={required}
       defaultValue={defaultValue}
       value={value}
