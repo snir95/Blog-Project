@@ -12,7 +12,6 @@ import {
   useDeleteBlogMutation,
   useCreateBlogMutation,
 } from "../services/blog";
-import { getRandomColor } from "../services/utils";
 
 const modals = {
   view: ViewPostModal,
@@ -33,7 +32,6 @@ const Blog = () => {
   const onShowModal = (type) => {
     setModalType(type);
   };
-  const bgColor = getRandomColor();
 
   const handleSubmit = () => {
     const { title, description, bgColor } = cardData;
@@ -59,12 +57,13 @@ const Blog = () => {
   const Modal = modals[modalType];
 
   const onAddNewPost = () => {
-    setCardData({ title: "", description: "" });
+    setCardData({ title: "", description: "", bgColor: "white" });
     onShowModal("create");
   };
 
   return (
     <div>
+      <Title1>Welcome to Blog Site</Title1>
       <CustomContainer>
         <CustomButton
           buttonName="Add new Blog"
@@ -105,6 +104,10 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   margin: 10px 0 0 0;
+`;
+const Title1 = styled.h1`
+  justify-content: center;
+  text-align: center;
 `;
 
 export default Blog;

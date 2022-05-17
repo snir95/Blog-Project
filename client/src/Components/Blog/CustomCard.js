@@ -21,7 +21,7 @@ const Card = styled.div`
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.125);
   background-color: ${({ bgColor }) => bgColor || "lightgrey"};
-  width: 25%;
+  width: 15%;
 `;
 const CardBody = styled.div`
   flex: 1 1 auto;

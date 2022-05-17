@@ -1,5 +1,4 @@
 import React from "react";
-import { getRandomColor } from "../../../services/utils";
 import CustomButton from "../../Control/CustomButton";
 import CustomInput from "../../Control/CustomInput";
 import CustomModal from "../../Modals/CustomModal";
@@ -19,6 +18,12 @@ const CreatePostModal = ({ onClose, cardData, handleSubmit, handleChange }) => {
       <CustomInput
         onChangeInput={(value) => handleChange("description", value)}
         value={cardData?.description}
+      ></CustomInput>
+      <label>Color</label>
+      <CustomInput
+        type="color"
+        onChangeInput={(value) => handleChange("bgColor", value)}
+        value={cardData?.bgColor}
       ></CustomInput>
       <CustomModalFooter onClose={onClose}>
         <CustomButton
